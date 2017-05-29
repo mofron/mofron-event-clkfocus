@@ -16,6 +16,7 @@ mofron.event.Focus = class extends mofron.Event {
             
             this.m_tgtclk = false;
             this.m_focus  = false;
+            this.m_init   = true;
             
             if ('object' === fnc) {
                 this.prmOpt(fnc);
@@ -46,21 +47,25 @@ mofron.event.Focus = class extends mofron.Event {
                 },
                 false
             );
-            window.addEventListener(
-                'click',
-                () => {
-                    try {
-                        evt.focus(
-                            (true === evt.m_tgtclk) ? true : false
-                        );
-                        evt.m_tgtclk = false;
-                    } catch (e) {
-                        console.error(e.stack);
-                        throw e;
-                    }
-                },
-                false 
-            );
+            
+            if (true === this.m_init) {
+                window.addEventListener(
+                    'click',
+                    () => {
+                        try {
+                            evt.focus(
+                                (true === evt.m_tgtclk) ? true : false
+                            );
+                            evt.m_tgtclk = false;
+                        } catch (e) {
+                            console.error(e.stack);
+                            throw e;
+                        }
+                    },
+                    false 
+                );
+                this.m_init = false;
+            }
         } catch (e) {
             console.error(e.stack);
             throw e;
