@@ -9,20 +9,16 @@
  */
 mofron.event.Focus = class extends mofron.Event {
     
-    constructor (fnc, prm) {
+    constructor (po, p2) {
         try {
-            super();
+            super(po, p2);
             this.name('Focus');
             
             this.m_tgtclk = false;
             this.m_focus  = false;
             this.m_init   = true;
             
-            if ('object' === fnc) {
-                this.prmOpt(fnc);
-            } else {
-                this.handler(fnc, prm);
-            }
+            this.prmOpt(po);
         } catch (e) {
             console.error(e.stack);
             throw e;
