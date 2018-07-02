@@ -11,14 +11,14 @@ mofron.event.Focus = class extends mofron.Event {
     
     constructor (po, p2) {
         try {
-            super(po, p2);
+            super();
             this.name('Focus');
             
             this.m_tgtclk = false;
             this.m_focus  = false;
             this.m_init   = true;
             
-            this.prmOpt(po);
+            this.prmOpt(po, p2);
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -92,5 +92,5 @@ mofron.event.Focus = class extends mofron.Event {
         }
     }
 }
-mofron.event.focus = {};
 module.exports = mofron.event.Focus;
+/* end of file */
