@@ -28,7 +28,7 @@ mofron.event.Focus = class extends mofron.Event {
     /**
      * add click event to target component.
      */
-    eventConts (tgt_dom) {
+    contents (tgt_dom) {
         try {
             let evt = this;
             tgt_dom.getRawDom().addEventListener(
@@ -83,7 +83,7 @@ mofron.event.Focus = class extends mofron.Event {
                  (flg !== this.m_focus) ) {
                 this.m_focus = flg;
                 if (null != evt_func[0]) {
-                    evt_func[0](flg, this.target(), evt_func[1]);
+                    evt_func[0](flg, this.component(), evt_func[1]);
                 }
             }
         } catch (e) {
