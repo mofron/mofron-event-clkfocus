@@ -2,14 +2,14 @@
  * @file mofron-event-focus/index.js
  * @author simpart
  */
-
+const mf = require('mofron');
 /**
  * @class mofron.event.Focus
  * @brief focus event class for component
  */
-mofron.event.Focus = class extends mofron.Event {
+mf.event.Focus = class extends mf.Event {
     
-    constructor (po, p2) {
+    constructor (po) {
         try {
             super();
             this.name('Focus');
@@ -18,7 +18,8 @@ mofron.event.Focus = class extends mofron.Event {
             this.m_focus  = false;
             this.m_init   = true;
             
-            this.prmOpt(po, p2);
+            this.prmMap('handler');
+            this.prmOpt(po);
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -78,13 +79,21 @@ mofron.event.Focus = class extends mofron.Event {
             if ('boolean' !== typeof flg) {
                 throw new Error('invalid parameter');
             }
-            let evt_func = this.handler();
             if ( ((true === flg) && (undefined === this.m_focus)) ||
                  (flg !== this.m_focus) ) {
                 this.m_focus = flg;
-                if (null != evt_func[0]) {
-                    evt_func[0](flg, this.component(), evt_func[1]);
-                }
+                this.execHandler(flg);
+            }
+        } catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+    
+    execEffect (eff, prm) {
+        try {
+            for (let eidx in eff) {
+                eff[eidx].execute(prm[2]);
             }
         } catch (e) {
             console.error(e.stack);
@@ -92,5 +101,5 @@ mofron.event.Focus = class extends mofron.Event {
         }
     }
 }
-module.exports = mofron.event.Focus;
+module.exports = mf.event.Focus;
 /* end of file */
