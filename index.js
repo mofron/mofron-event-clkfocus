@@ -81,9 +81,10 @@ mf.event.Focus = class extends mf.Event {
             }
             if ( ((true === flg) && (undefined === this.m_focus)) ||
                  (flg !== this.m_focus) ) {
-                this.m_focus = flg;
                 this.execHandler(flg);
             }
+            this.m_focus  = flg;
+            this.m_tgtclk = flg;
         } catch (e) {
             console.error(e.stack);
             throw e;
