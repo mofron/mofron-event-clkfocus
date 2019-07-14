@@ -1,24 +1,23 @@
 /**
- * @file mofron-event-focus/index.js
+ * @file mofron-event-clkfocus/index.js
+ * @brief click focus event for mofron
+ * @feature enable focus by clicking component and disable focus by clicking the other than that.
+ * @attention not supported focus event by tab key
  * @author simpart
  */
 const mf = require('mofron');
-/**
- * @class mofron.event.Focus
- * @brief focus event class for component
- */
-mf.event.Focus = class extends mf.Event {
-    
+
+mf.event.ClkFocus = class extends mf.Event {
+    /**
+     * initialize event
+     * 
+     * @param (mixed) event prameter
+     * @type private
+     */
     constructor (po) {
         try {
             super();
-            this.name('Focus');
-            
-            this.m_tgtclk = false;
-            this.m_focus  = false;
-            this.m_init   = true;
-            
-            this.prmMap('handler');
+            this.name('ClkFocus');
             this.prmOpt(po);
         } catch (e) {
             console.error(e.stack);
@@ -27,7 +26,10 @@ mf.event.Focus = class extends mf.Event {
     }
     
     /**
-     * add click event to target component.
+     * event contents for target component
+     * 
+     * @param (mf.Dom) target dom object
+     * @type private
      */
     contents (tgt_dom) {
         try {
@@ -35,9 +37,7 @@ mf.event.Focus = class extends mf.Event {
             tgt_dom.getRawDom().addEventListener(
                 'click',
                 () => {
-                    try {
-                        evt.m_tgtclk = true;
-                    } catch (e) {
+                    try { evt.clickFlag(true); } catch (e) {
                         console.error(e.stack);
                         throw e;
                     }
@@ -45,62 +45,60 @@ mf.event.Focus = class extends mf.Event {
                 false
             );
             
-            if (true === this.m_init) {
-                window.addEventListener(
-                    'click',
-                    () => {
-                        try {
-                            evt.focus(
-                                (true === evt.m_tgtclk) ? true : false
-                            );
-                            evt.m_tgtclk = false;
-                        } catch (e) {
-                            console.error(e.stack);
-                            throw e;
+            window.addEventListener(
+                'click',
+                () => {
+                    try {
+                        if ( (true === evt.focusSts()) &&
+                             (false === evt.clickFlag()) ) {
+                            evt.execHandler(false);
+                            evt.focusSts(false);
+                        } else if ( (false === evt.focusSts()) &&
+                                    (true === evt.clickFlag()) ) {
+                            evt.execHandler(true);
+                            evt.focusSts(true);
                         }
-                    },
-                    false 
-                );
-                this.m_init = false;
-            }
+                        evt.clickFlag(false);
+                    } catch (e) {
+                        console.error(e.stack);
+                        throw e;
+                    }
+                },
+                false 
+            );
         } catch (e) {
             console.error(e.stack);
             throw e;
         }
     }
     
-    focus (flg) {
-        try {
-            if (undefined === flg) {
-                /* getter */
-                return (undefined === this.m_focus) ? false : this.m_focus;
-            }
-            /* setter */
-            if ('boolean' !== typeof flg) {
-                throw new Error('invalid parameter');
-            }
-            if ( ((true === flg) && (undefined === this.m_focus)) ||
-                 (flg !== this.m_focus) ) {
-                this.execHandler(flg);
-            }
-            this.m_focus  = flg;
-            this.m_tgtclk = flg;
-        } catch (e) {
+    /**
+     * flag for target clicked
+     *
+     * @param (boolean) click flag
+     * @return (boolean) click flag
+     * @type private
+     */
+    clickFlag (prm) {
+        try { return this.member("clickFlag", "boolean", prm, false); } catch (e) {
             console.error(e.stack);
             throw e;
         }
     }
     
-    execEffect (eff, prm) {
-        try {
-            for (let eidx in eff) {
-                eff[eidx].execute(prm[2]);
-            }
-        } catch (e) {
+    /**
+     * focus status flag
+     *
+     * @param (boolean) focus status flag
+     * @return (boolean) focus status flag
+     * @type private
+     */
+    focusSts (prm) {
+        try { return this.member("focusSts", "boolean", prm, false); } catch (e) {
             console.error(e.stack);
             throw e;
         }
     }
 }
-module.exports = mf.event.Focus;
+module.exports = mf.event.ClkFocus;
 /* end of file */

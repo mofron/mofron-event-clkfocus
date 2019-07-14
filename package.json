@@ -1,6 +1,6 @@
 {
-  "name": "mofron-event-focus",
-  "version": "0.2.2",
+  "name": "mofron-event-clkfocus",
+  "version": "0.0.1",
   "description": "focus event for mofron component",
   "main": "index.js",
   "scripts": {
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/simpart/mofron-event-focus.git"
+    "url": "git+https://github.com/mofron/mofron-event-focus.git"
   },
   "keywords": [
-    "mofron"
+    "front-end"
   ],
   "author": "simpart",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/simpart/mofron-event-focus/issues"
+    "url": "https://github.com/mofron/mofron-event-focus/issues"
   },
-  "homepage": "https://github.com/simpart/mofron-event-focus#readme"
+  "homepage": "https://github.com/moforn/mofron-event-focus#readme"
 }
