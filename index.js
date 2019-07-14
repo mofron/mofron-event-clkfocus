@@ -33,6 +33,9 @@ mf.event.ClkFocus = class extends mf.Event {
      */
     contents (tgt_dom) {
         try {
+            if (true === this.pointer()) {
+                tgt_dom.component().style({ "cursor": "pointer" });
+            }
             let evt = this;
             tgt_dom.getRawDom().addEventListener(
                 'click',
@@ -95,6 +98,21 @@ mf.event.ClkFocus = class extends mf.Event {
      */
     focusSts (prm) {
         try { return this.member("focusSts", "boolean", prm, false); } catch (e) {
+            console.error(e.stack);
+            throw e;
+        }
+    }
+    
+    /**
+     * cursor pointer flag
+     *
+     * @param (boolean) true: set pointer cursor to target component.
+     *                  false: not set cursor to targeet component.
+     * @return (boolean) cursor pointer flag
+     * @type parameter
+     */
+    pointer (prm) {
+        try { return this.member("pointer", "boolean", prm, true); } catch (e) {
             console.error(e.stack);
             throw e;
         }

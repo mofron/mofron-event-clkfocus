@@ -9,4 +9,4 @@ let evt = (p1,p2) => {
 }
 </script>
 
-<Frame name=frm event=ClkFocus(evt)></Frame>
+<Frame event=ClkFocus(evt)></Frame>

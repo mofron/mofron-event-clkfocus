@@ -26,6 +26,12 @@ let evt = (p1,p2) => {
 }
 </script>
 
-<Frame name=frm event=ClkFocus(evt)></Frame>
+<Frame event=ClkFocus(evt)></Frame>
 ```
+# Parameter
+
+|Simple<br>Param | Parameter Name | Type | Description |
+|:--------------:|:---------------|:-----|:------------|
+| | pointer | boolean | true: set pointer cursor to target component. |
+| | | | false: not set cursor to targeet component. |
 
