@@ -1,12 +1,9 @@
 <require>
     <tag module="mofron-comp-frame">Frame</tag>
-    <tag module="mofron-event-clkfocus">ClkFocus</tag>
+    <tag module="mofron-event-clkfocus">Focus</tag>
 </require>
-
-<script run=init>
-let evt = (p1,p2) => {
-    p1.color((true === p2) ? "#f0e6fa" : "#FFFFFF");
-}
+<script name=cevt run=init>
+    cevt1.color((true === cevt2) ? "#f0e6fa" : "#FFFFFF");
 </script>
 
-<Frame event=ClkFocus(evt)></Frame>
+<Frame event=Focus:@cevt></Frame>

@@ -3,8 +3,16 @@
 
 click focus event for mofron
 
+## event function parameter
+
+- component: event target component object
+
+- boolean: focus flag
+
+- mixed: user specified parameter
+
 ## Feature
- - enable focus by clicking component and disable focus by clicking the other than that.
+ - this event notify when enable focus by clicking component and disable focus by clicking the other than that.
 ## Attention
  - not supported focus event by tab key
 
@@ -17,21 +25,19 @@ npm install mofron mofron-event-clkfocus
 ```html
 <require>
     <tag module="mofron-comp-frame">Frame</tag>
-    <tag module="mofron-event-clkfocus">ClkFocus</tag>
+    <tag module="mofron-event-clkfocus">Focus</tag>
 </require>
-
-<script run=init>
-let evt = (p1,p2) => {
-    p1.color((true === p2) ? "#f0e6fa" : "#FFFFFF");
-}
+<script name=cevt run=init>
+    cevt1.color((true === cevt2) ? "#f0e6fa" : "#FFFFFF");
 </script>
 
-<Frame event=ClkFocus(evt)></Frame>
+<Frame event=Focus:@cevt></Frame>
 ```
+
 # Parameter
 
-|Simple<br>Param | Parameter Name | Type | Description |
-|:--------------:|:---------------|:-----|:------------|
+| Short<br>Form | Parameter Name | Type | Description |
+|:-------------:|:---------------|:-----|:------------|
 | | pointer | boolean | true: set pointer cursor to target component. |
 | | | | false: not set cursor to targeet component. |
 

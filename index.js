@@ -1,24 +1,35 @@
 /**
  * @file mofron-event-clkfocus/index.js
  * @brief click focus event for mofron
- * @feature enable focus by clicking component and disable focus by clicking the other than that.
+ * ## event function parameter
+ *  - component: event target component object
+ *  - boolean: focus flag
+ *  - mixed: user specified parameter
+ * @feature this event notify when enable focus by clicking component and disable focus by clicking the other than that.
  * @attention not supported focus event by tab key
- * @author simpart
+ * @license MIT
  */
-const mf = require('mofron');
 
-mf.event.ClkFocus = class extends mf.Event {
+module.exports = class extends mofron.class.Event {
     /**
      * initialize event
      * 
-     * @param (mixed) event prameter
+     * @param (mixed) short-form parameter
+     *                key-value: event config
      * @type private
      */
-    constructor (po) {
+    constructor (prm) {
         try {
             super();
             this.name('ClkFocus');
-            this.prmOpt(po);
+            /* init config */
+            this.confmng().add("clickFlag", { type: "boolean", init: false });
+	    this.confmng().add("focusSts", { type: "boolean", init: false });
+	    this.confmng().add("pointer", { type: "boolean", init:true });
+	    /* set config */
+	    if (undefined !== prm) {
+               this.config(prm);
+	    }
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -54,11 +65,11 @@ mf.event.ClkFocus = class extends mf.Event {
                     try {
                         if ( (true === evt.focusSts()) &&
                              (false === evt.clickFlag()) ) {
-                            evt.execHandler(false);
+                            evt.execListener(false);
                             evt.focusSts(false);
                         } else if ( (false === evt.focusSts()) &&
                                     (true === evt.clickFlag()) ) {
-                            evt.execHandler(true);
+                            evt.execListener(true);
                             evt.focusSts(true);
                         }
                         evt.clickFlag(false);
@@ -83,7 +94,9 @@ mf.event.ClkFocus = class extends mf.Event {
      * @type private
      */
     clickFlag (prm) {
-        try { return this.member("clickFlag", "boolean", prm, false); } catch (e) {
+        try {
+	    return this.confmng("clickFlag", prm);
+	} catch (e) {
             console.error(e.stack);
             throw e;
         }
@@ -97,7 +110,9 @@ mf.event.ClkFocus = class extends mf.Event {
      * @type private
      */
     focusSts (prm) {
-        try { return this.member("focusSts", "boolean", prm, false); } catch (e) {
+        try {
+	    return this.confmng("focusSts", prm);
+	} catch (e) {
             console.error(e.stack);
             throw e;
         }
@@ -112,11 +127,12 @@ mf.event.ClkFocus = class extends mf.Event {
      * @type parameter
      */
     pointer (prm) {
-        try { return this.member("pointer", "boolean", prm, true); } catch (e) {
+        try {
+	    return this.confmng("pointer", prm);
+	} catch (e) {
             console.error(e.stack);
             throw e;
         }
     }
 }
-module.exports = mf.event.ClkFocus;
 /* end of file */
