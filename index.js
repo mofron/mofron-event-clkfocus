@@ -9,8 +9,9 @@
  * @attention not supported focus event by tab key
  * @license MIT
  */
+const Click = require("mofron-event-click");
 
-module.exports = class extends mofron.class.Event {
+module.exports = class extends Click {
     /**
      * initialize event
      * 
@@ -39,7 +40,7 @@ module.exports = class extends mofron.class.Event {
     /**
      * event contents for target component
      * 
-     * @param (mf.Dom) target dom object
+     * @param (mofron.class.Dom) target dom object
      * @type private
      */
     contents (tgt_dom) {
@@ -51,7 +52,9 @@ module.exports = class extends mofron.class.Event {
             tgt_dom.getRawDom().addEventListener(
                 'click',
                 () => {
-                    try { evt.clickFlag(true); } catch (e) {
+                    try {
+		        evt.clickFlag(true);
+                    } catch (e) {
                         console.error(e.stack);
                         throw e;
                     }
@@ -59,27 +62,24 @@ module.exports = class extends mofron.class.Event {
                 false
             );
             
-            window.addEventListener(
-                'click',
-                () => {
-                    try {
-                        if ( (true === evt.focusSts()) &&
-                             (false === evt.clickFlag()) ) {
-                            evt.execListener(false);
-                            evt.focusSts(false);
-                        } else if ( (false === evt.focusSts()) &&
-                                    (true === evt.clickFlag()) ) {
-                            evt.execListener(true);
-                            evt.focusSts(true);
-                        }
-                        evt.clickFlag(false);
-                    } catch (e) {
-                        console.error(e.stack);
-                        throw e;
+            let win_clk = () => {
+                try {
+                    if ( (true === evt.focusSts()) &&
+                         (false === evt.clickFlag()) ) {
+                        evt.execListener(false);
+                        evt.focusSts(false);
+                    } else if ( (false === evt.focusSts()) &&
+                                (true === evt.clickFlag()) ) {
+                        evt.execListener(true);
+                        evt.focusSts(true);
                     }
-                },
-                false 
-            );
+                    evt.clickFlag(false);
+                } catch (e) {
+                    console.error(e.stack);
+                    throw e;
+                }
+	    }
+	    mofron.window.event(new Click(win_clk));
         } catch (e) {
             console.error(e.stack);
             throw e;
@@ -112,23 +112,6 @@ module.exports = class extends mofron.class.Event {
     focusSts (prm) {
         try {
 	    return this.confmng("focusSts", prm);
-	} catch (e) {
-            console.error(e.stack);
-            throw e;
-        }
-    }
-    
-    /**
-     * cursor pointer flag
-     *
-     * @param (boolean) true: set pointer cursor to target component.
-     *                  false: not set cursor to targeet component.
-     * @return (boolean) cursor pointer flag
-     * @type parameter
-     */
-    pointer (prm) {
-        try {
-	    return this.confmng("pointer", prm);
 	} catch (e) {
             console.error(e.stack);
             throw e;
