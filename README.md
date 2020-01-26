@@ -34,10 +34,3 @@ npm install mofron mofron-event-clkfocus
 <Frame event=Focus:@cevt></Frame>
 ```
 
-# Parameter
-
-| Short<br>Form | Parameter Name | Type | Description |
-|:-------------:|:---------------|:-----|:------------|
-| | pointer | boolean | true: set pointer cursor to target component. |
-| | | | false: not set cursor to targeet component. |
-
