@@ -25,8 +25,7 @@ module.exports = class extends Click {
             this.name('ClkFocus');
             /* init config */
             this.confmng().add("clickFlag", { type: "boolean", init: false });
-	    this.confmng().add("focusSts", { type: "boolean", init: false });
-	    this.confmng().add("pointer", { type: "boolean", init:true });
+	    this.confmng().add("status", { type: "boolean", init: false });
 	    /* set config */
 	    if (undefined !== prm) {
                this.config(prm);
@@ -64,14 +63,14 @@ module.exports = class extends Click {
             
             let win_clk = () => {
                 try {
-                    if ( (true === evt.focusSts()) &&
+                    if ( (true === evt.status()) &&
                          (false === evt.clickFlag()) ) {
                         evt.execListener(false);
-                        evt.focusSts(false);
-                    } else if ( (false === evt.focusSts()) &&
+                        evt.status(false);
+                    } else if ( (false === evt.status()) &&
                                 (true === evt.clickFlag()) ) {
                         evt.execListener(true);
-                        evt.focusSts(true);
+                        evt.status(true);
                     }
                     evt.clickFlag(false);
                 } catch (e) {
@@ -103,15 +102,16 @@ module.exports = class extends Click {
     }
     
     /**
-     * focus status flag
+     * focus status flag setter/getter
      *
      * @param (boolean) focus status flag
+     *                  undefined: call as getter
      * @return (boolean) focus status flag
-     * @type private
+     * @type function
      */
-    focusSts (prm) {
+    status (prm) {
         try {
-	    return this.confmng("focusSts", prm);
+	    return this.confmng("status", prm);
 	} catch (e) {
             console.error(e.stack);
             throw e;

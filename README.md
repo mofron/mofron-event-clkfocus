@@ -34,3 +34,10 @@ npm install mofron mofron-event-clkfocus
 <Frame event=Focus:@cevt></Frame>
 ```
 
+# Parameter
+
+| Short<br>Form | Parameter Name | Type | Description |
+|:-------------:|:---------------|:-----|:------------|
+| | status | boolean | focus status flag |
+| | | | undefined: call as getter |
+
