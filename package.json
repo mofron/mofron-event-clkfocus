@@ -1,6 +1,6 @@
 {
   "name": "mofron-event-clkfocus",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "focus event for mofron component",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mofron/mofron-event-focus.git"
+  },
+  "dependencies": {
+    "mofron-event-click" : ""
   },
   "keywords": [
     "front-end", "mofron"

@@ -22,7 +22,7 @@ module.exports = class extends Click {
     constructor (prm) {
         try {
             super();
-            this.name('ClkFocus');
+            this.modname('ClkFocus');
             /* init config */
             this.confmng().add("clickFlag", { type: "boolean", init: false });
 	    this.confmng().add("status", { type: "boolean", init: false });
